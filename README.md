@@ -13,14 +13,14 @@ everything that answers `A2S_INFO`.
 Runs anywhere with Python 3.10+ and network access to the server's **query
 port**: on the game server itself, a VPS, a Raspberry Pi.
 
-Part of the [LinkHarbor integrations](https://github.com/linkharbor/linkharbor-integrations)
+Part of the [LinkHarbor integrations](https://github.com/linkharbor/integrations)
 family (one repo per game).
 
 ## Setup
 
 ```bash
-git clone https://github.com/linkharbor/linkharbor-steam
-cd linkharbor-steam
+git clone https://github.com/linkharbor/integration-steam
+cd integration-steam
 pip install -r requirements.txt
 
 export LH_INGEST_URL="https://api.linkharbor.com/v1/ingest/123"   # dashboard → Integrations → Custom (API)
@@ -32,8 +32,8 @@ python3 agent.py --host 203.0.113.10 --port 27015 \
 ```
 
 Try `--once -v` first: it queries once, prints what the server answers and
-sends one state. Then run it as a service: see `linkharbor-steam.service`
-(systemd; the two secrets go into `/etc/linkharbor-steam.env`, `chmod 600`).
+sends one state. Then run it as a service: see `integration-steam.service`
+(systemd; the two secrets go into `/etc/integration-steam.env`, `chmod 600`).
 
 ## Query ports per game
 
