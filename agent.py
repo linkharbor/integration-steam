@@ -7,7 +7,7 @@ state to a LinkHarbor "Custom (API)" integration so your bio page shows a
 live game-server card and your followers can get push notifications.
 
     pip install -r requirements.txt
-    export LH_INGEST_URL="https://api.linkharbor.com/v1/ingest/123"
+    export LH_INGEST_URL="https://dock.at-harbor.com/v1/ingest/123"
     export LH_INGEST_SECRET="…"
     python3 agent.py --host 203.0.113.10 --port 27015 --name "My Rust Server" \
         --address "203.0.113.10:28015" --url "https://discord.gg/xyz" --interval 60
