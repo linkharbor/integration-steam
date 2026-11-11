@@ -25,6 +25,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import logging
 import os
 import sys
@@ -52,6 +53,8 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--cta", default="Join server", help="button label")
     p.add_argument("--game", default="", help="game label (default: from A2S)")
     p.add_argument("--image-url", default="", help="banner image for the large layout")
+    p.add_argument("--join", action="store_true",
+                   help="\"Join in game\" button via steam://connect (Source-engine games: CS2, TF2, Garry's Mod, Rust …)")
     p.add_argument("--interval", type=int, default=60, help="seconds between queries (default 60)")
     p.add_argument("--heartbeat", type=int, default=10, help="minutes between state-only updates (0 = only on change)")
     p.add_argument("--no-player-names", action="store_true", help="don't send player names")
@@ -125,6 +128,12 @@ def query(host: str, port: int, with_players: bool) -> tuple[dict | None, list[s
     }, names
 
 
+def join_url(address: str) -> str:
+    """steam://connect/<host>[:<port>], or ""."""
+    m = re.fullmatch(r"[A-Za-z0-9.-]{1,253}(?::\d{1,5})?", address.strip())
+    return f"steam://connect/{address.strip()}" if m else ""
+
+
 def build_state(a: argparse.Namespace, info: dict | None, names: list[str], last_name: str) -> dict:
     s: dict = {"type": "game_server", "name": a.name or (info or {}).get("server_name") or last_name or "Game server"}
     if a.address:
@@ -135,6 +144,8 @@ def build_state(a: argparse.Namespace, info: dict | None, names: list[str], last
         s["cta"] = a.cta
     if a.image_url:
         s["image_url"] = a.image_url
+    if a.join and a.address and join_url(a.address):
+        s["join_url"] = join_url(a.address)
     if info is None:
         s.update(online=False, players_online=0, players=[])
         return s

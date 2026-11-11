@@ -1,6 +1,6 @@
 # LinkHarbor for Steam and Source servers
 
-A single-file Python agent that polls a game server over the Steam A2S query protocol and shows it on your [LinkHarbor](https://linkharbor.com) bio page: online or offline, "12 / 50" players, player names, map and version. Joins and leaves become events your followers can get push notifications for.
+A single-file Python agent that polls a game server over the Steam A2S query protocol and shows it on your [LinkHarbor](https://linkharbor.com) bio page: online or offline, "12 / 50" players, player names, map and version, and with `--join` a "Join in game" button that starts the game through Steam and connects (computers only; `steam://connect` works for Source-engine games such as Counter-Strike 2, Team Fortress 2, Garry's Mod and Rust). Joins and leaves become events your followers can get push notifications for.
 
 One agent covers every game that answers A2S queries: Rust, ARK, Valheim, Palworld, Counter-Strike 2, Garry's Mod, Team Fortress 2, Satisfactory, 7 Days to Die, Enshrouded, V Rising, Conan Exiles, DayZ, Squad, Project Zomboid, Killing Floor 2, Insurgency, Left 4 Dead 2 and more.
 
@@ -72,6 +72,7 @@ Suggested push rule (dashboard, Integrations, Push rules, Custom (API), event `p
 --cta TEXT             button label (default "Join server")
 --game TEXT            game label (default from A2S)
 --image-url URL        banner image for the large layout
+--join                 "Join in game" button via steam://connect (needs --address)
 --interval SECONDS     polling interval (default 60, minimum 5)
 --heartbeat MINUTES    state-only update interval (default 10, 0 = only on change)
 --no-player-names      send counts only
